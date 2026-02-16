@@ -52,6 +52,7 @@ public class TransfersController : ControllerBase
         toAccount.Balance += request.Amount;
 
         // Create debit transaction
+        var reference = $"TRF{DateTime.UtcNow:yyyyMMddHHmmssfff}{new Random().Next(1000, 9999)}";
         var debitTransaction = new Transaction
         {
             AccountId = request.FromAccountId,
@@ -60,7 +61,7 @@ public class TransfersController : ControllerBase
             Description = $"Transfer to {toAccount.AccountNumber}: {request.Description}",
             Category = "Transfer",
             Date = DateTime.UtcNow,
-            Reference = $"TRF{Guid.NewGuid().ToString("N")[..8].ToUpper()}"
+            Reference = reference
         };
 
         // Create credit transaction
@@ -72,7 +73,7 @@ public class TransfersController : ControllerBase
             Description = $"Transfer from {fromAccount.AccountNumber}: {request.Description}",
             Category = "Transfer",
             Date = DateTime.UtcNow,
-            Reference = debitTransaction.Reference
+            Reference = reference
         };
 
         _context.Transactions.Add(debitTransaction);

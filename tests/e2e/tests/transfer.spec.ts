@@ -18,8 +18,10 @@ test.describe('Transfer Flow', () => {
       timeout: 10000,
     });
 
-    // Verify the balances were updated by checking if page reloaded the data
-    await page.waitForTimeout(500);
+    // Wait for data to reload
+    await page.waitForResponse(response => 
+      response.url().includes('/api/accounts') && response.status() === 200
+    );
     
     // Verify new transaction appears in the table
     await expect(page.locator('table tbody').getByText('Transfer')).toBeVisible();
