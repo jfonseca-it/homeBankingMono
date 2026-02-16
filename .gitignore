@@ -1,0 +1,33 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.swp
+
+# Node
+node_modules/
+dist/
+.vite/
+*.local
+
+# IDEs
+.vs/
+.vscode/
+.idea/
+*.code-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test Results
+TestResults/
+*.trx
+*.coverage
+
+# Playwright
+playwright-report/
+test-results/
+playwright/.cache/
